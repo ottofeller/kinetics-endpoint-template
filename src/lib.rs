@@ -3,10 +3,7 @@ use kinetics_macro::endpoint;
 use lambda_http::{Body, Error, Request, Response};
 use std::collections::HashMap;
 
-#[endpoint(
-    url_path = "/endpoint",
-    environment = {"SOME_VAR": "somevalue"},
-)]
+#[endpoint(url_path = "/endpoint")]
 pub async fn endpoint(
     _event: Request,
     _secrets: &HashMap<String, String>,
