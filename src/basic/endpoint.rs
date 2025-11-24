@@ -1,6 +1,7 @@
-use aws_sdk_sqs::operation::send_message::builders::SendMessageFluentBuilder;
-use kinetics_macro::endpoint;
-use lambda_http::{Body, Error, Request, Response};
+use http::{Request, Response};
+use kinetics::macros::endpoint;
+use kinetics::tools::config::Config as KineticsConfig;
+use kinetics::tools::http::Body;
 use serde_json::json;
 use std::collections::HashMap;
 
@@ -10,10 +11,10 @@ use std::collections::HashMap;
 /// kinetics invoke BasicEndpointEndpoint
 #[endpoint(url_path = "/endpoint")]
 pub async fn endpoint(
-    _event: Request,
+    _event: Request<Body>,
     _secrets: &HashMap<String, String>,
-    _queues: &HashMap<String, SendMessageFluentBuilder>,
-) -> Result<Response<Body>, Error> {
+    _config: &KineticsConfig,
+) -> Result<Response<Body>, tower::BoxError> {
     let resp = Response::builder()
         .status(200)
         .header("content-type", "application/json")
