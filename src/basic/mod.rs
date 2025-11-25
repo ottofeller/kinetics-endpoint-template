@@ -1,1 +1,1 @@
-mod endpoint;
+pub mod endpoint;
